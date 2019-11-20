@@ -5,13 +5,16 @@ const port = 3000;
 const username = 'foo';
 const password = 'bar';
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 app.use(cookieParser());
+//app.use(session());
 
 app.set('views', './views');
 app.set('view engine', 'pug');
 
 app.get('/setCookie/:clr', (req, res) => {
-  res.cookie('color', {path: '/'}).send('cookie set');
+  res.cookie('color', req.params).send('cookie set');
 });
 
 app.get('/deleteCookie/', (req, res) => {
@@ -19,11 +22,11 @@ app.get('/deleteCookie/', (req, res) => {
 });
 
 app.get('/form', (req, res) => {
-  res.render('./views/form.pug')
+  res.render('form')
 });
 
 app.get('/secret', (req, res) => {
-  res.render('./views/secret.pug')
+  res.render('secret')
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
